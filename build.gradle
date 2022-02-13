@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation("net.dv8tion:JDA:5.0.0-alpha.5")
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
