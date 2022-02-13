@@ -43,6 +43,7 @@ public class MessageListener implements DiscordListener {
     //onMessage() will be called before onLastListenMessage()!
 }
 ```
+TAKE CARE! Make sure you use the annotation from the library and not jda (check your imports)
 
 # Recommendations
 
