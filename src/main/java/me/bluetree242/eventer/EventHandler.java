@@ -1,6 +1,5 @@
 package me.bluetree242.eventer;
 
-import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.GenericEvent;
 
 public interface EventHandler<T extends GenericEvent> {
