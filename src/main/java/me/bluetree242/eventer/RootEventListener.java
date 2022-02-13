@@ -18,13 +18,9 @@ public class RootEventListener implements EventListener {
     @Override
     public void onEvent(@NotNull GenericEvent event) {
         Set<EventHandler> handlers = new HashSet<>(core.getHandlers());
-        handlers.stream().sorted(new Comparator<EventHandler>() {
-            @Override
-            public int compare(EventHandler o1, EventHandler o2) {
-                return o1.getPriority().getAsNum() - o2.getPriority().getAsNum();
-            }
-        });
+        handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum()));
         for (EventHandler handler : handlers) {
+            if (handler.getEvent().isInstance(event))
             handler.onEvent(event);
         }
     }
