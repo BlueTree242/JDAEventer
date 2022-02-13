@@ -25,7 +25,7 @@ public class Bot {
     }
     
 }
-public class MessageListener {
+public class MessageListener implements DiscordListener{
     
     @SubscribeEvent //default priority is NORMAL
     public void onMessage(MessageReceivedEvent e) { //method name doesn't matter anymore
