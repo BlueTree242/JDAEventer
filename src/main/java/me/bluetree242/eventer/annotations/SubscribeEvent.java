@@ -9,7 +9,14 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+/**
+ * Put this on methods to subscribe to, if you do not include this on method it will be ignored when you register
+ */
 public @interface SubscribeEvent {
 
+    /**
+     * A priority determines when to call your method
+     * @return priority of the method
+     */
     EventPriority priority() default EventPriority.NORMAL;
 }

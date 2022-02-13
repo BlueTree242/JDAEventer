@@ -29,14 +29,25 @@ public class Eventer {
     }
 
 
-    @Getter
-    @Setter
-    private EventListener rootListener;
+    private final RootEventListener rootListener;
+
+    /**
+     * gets the root instance, which is the listener you should add to your jda, this one listen for events and calls all the handlers
+     * @return the root listener for the eventer instance
+     * @see net.dv8tion.jda.api.JDA#addEventListener(Object...)
+     */
+    public RootEventListener getRootListener() {
+        return rootListener;
+    }
 
     public Eventer() {
         rootListener = new RootEventListener(this);
     }
 
+    /**
+     * Add a listener to this eventer instance
+     * @param listener listener to add
+     */
     public void addListener(DiscordListener listener) {
         try {
             for (Method method : listener.getClass().getMethods()) {
@@ -49,6 +60,11 @@ public class Eventer {
         }
     }
 
+    /**
+     * remove a listener, must be the exact instance registered before
+     * @param listener listener to remove
+     * @see Eventer#removeListener(Class)
+     */
     public void removeListener(DiscordListener listener) {
         for (EventHandler h : new HashSet<>(handlers)) {
             if (h instanceof MethodEventHandler) {
@@ -58,6 +74,11 @@ public class Eventer {
         }
     }
 
+    /**
+     * removes any handler registered from this listener class
+     * @param listener listener class to remove
+     * @see Eventer#removeListener(DiscordListener)
+     */
     public void removeListener(Class<? extends DiscordListener> listener) {
         for (EventHandler h : new HashSet<>(handlers)) {
             if (h instanceof MethodEventHandler) {

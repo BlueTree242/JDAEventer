@@ -1,5 +1,6 @@
 package me.bluetree242.eventer;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.dv8tion.jda.api.events.GenericEvent;
@@ -10,7 +11,10 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+/**
+ * This class is the listener which calls all the handlers, you can get the one from {@link Eventer#getRootListener()}
+ */
 public class RootEventListener implements EventListener {
     @Getter
     private final Eventer core;

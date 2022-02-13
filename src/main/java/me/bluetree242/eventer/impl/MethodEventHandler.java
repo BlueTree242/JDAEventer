@@ -7,6 +7,9 @@ import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.lang.reflect.Method;
 
+/**
+ * the handler for listeners, one per method
+ */
 public class MethodEventHandler implements EventHandler {
     @Getter
     private final EventPriority priority;
