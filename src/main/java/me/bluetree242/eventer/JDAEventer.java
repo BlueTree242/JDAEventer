@@ -1,18 +1,16 @@
 package me.bluetree242.eventer;
 
 import lombok.Getter;
-import lombok.Setter;
-import me.bluetree242.eventer.annotations.SubscribeEvent;
+import me.bluetree242.eventer.annotations.HandleEvent;
 import me.bluetree242.eventer.impl.MethodEventHandler;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Eventer {
+public class JDAEventer {
     @Getter
     private static final Set<EventHandler> handlers = new HashSet<>();
     public static Set<Class<? extends GenericEvent>> events = null;
@@ -40,7 +38,7 @@ public class Eventer {
         return rootListener;
     }
 
-    public Eventer() {
+    public JDAEventer() {
         rootListener = new RootEventListener(this);
     }
 
@@ -51,7 +49,7 @@ public class Eventer {
     public void addListener(DiscordListener listener) {
         try {
             for (Method method : listener.getClass().getMethods()) {
-                if (method.getAnnotation(SubscribeEvent.class) != null)
+                if (method.getAnnotation(HandleEvent.class) != null)
                     handlers.add((new MethodEventHandler(method, listener)));
             }
         } catch (Exception x) {
@@ -63,7 +61,7 @@ public class Eventer {
     /**
      * remove a listener, must be the exact instance registered before
      * @param listener listener to remove
-     * @see Eventer#removeListener(Class)
+     * @see JDAEventer#removeListener(Class)
      */
     public void removeListener(DiscordListener listener) {
         for (EventHandler h : new HashSet<>(handlers)) {
@@ -77,7 +75,7 @@ public class Eventer {
     /**
      * removes any handler registered from this listener class
      * @param listener listener class to remove
-     * @see Eventer#removeListener(DiscordListener)
+     * @see JDAEventer#removeListener(DiscordListener)
      */
     public void removeListener(Class<? extends DiscordListener> listener) {
         for (EventHandler h : new HashSet<>(handlers)) {

@@ -2,7 +2,7 @@ package me.bluetree242.eventer.impl;
 
 import lombok.Getter;
 import me.bluetree242.eventer.*;
-import me.bluetree242.eventer.annotations.SubscribeEvent;
+import me.bluetree242.eventer.annotations.HandleEvent;
 import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.lang.reflect.Method;
@@ -22,11 +22,11 @@ public class MethodEventHandler implements EventHandler {
 
     public MethodEventHandler(Method method, DiscordListener listener) {
         this.listener = listener;
-        SubscribeEvent annot = method.getAnnotation(SubscribeEvent.class);
+        HandleEvent annot = method.getAnnotation(HandleEvent.class);
         if (annot == null) throw new IllegalStateException("Bad Method to register");
         if (method.getParameterCount() != 1)
             throw new BadListenerException("@SubscribeEvent on a method with more than/less than 1 parameter");
-        if (!Eventer.events.contains(method.getParameterTypes()[0]))
+        if (!JDAEventer.events.contains(method.getParameterTypes()[0]))
             throw new IllegalStateException("Method " + method.toGenericString() + " first param is not an event");
         priority = annot.priority();
         event = method.getParameterTypes()[0];

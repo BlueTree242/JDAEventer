@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * Put this on methods to subscribe to, if you do not include this on method it will be ignored when you register
  */
-public @interface SubscribeEvent {
+public @interface HandleEvent {
 
     /**
      * A priority determines when to call your method

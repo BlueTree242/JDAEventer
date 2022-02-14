@@ -13,11 +13,11 @@ import java.util.Set;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 /**
- * This class is the listener which calls all the handlers, you can get the one from {@link Eventer#getRootListener()}
+ * This class is the listener which calls all the handlers, you can get the one from {@link JDAEventer#getRootListener()}
  */
 public class RootEventListener implements EventListener {
     @Getter
-    private final Eventer core;
+    private final JDAEventer core;
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {

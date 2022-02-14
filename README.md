@@ -19,7 +19,7 @@ Eventer aims to manage your events better than regular ListenerAdapter
 ```java
 public class Bot {
     public static void main(String[] args) {
-        Eventer eventer = new Eventer();
+        JDAEventer eventer = new JDAEventer();
         JDA jda; //init your jda instance here
         jda.addEventListener(eventer.getRootListener()); //if you want add this in the builder of jda
         //now forget about registering events from jda, register them in eventer!
@@ -30,12 +30,12 @@ public class Bot {
 
 public class MessageListener implements DiscordListener {
 
-    @SubscribeEvent //default priority is NORMAL
+    @HandleEvent //default priority is NORMAL
     public void onMessage(MessageReceivedEvent e) { //method name doesn't matter anymore
         //now listen for your event whatever you want to do
     }
 
-    @SubscribeEvent(priority = EventPriority.MONITOR)
+    @HandleEvent(priority = EventPriority.MONITOR)
     public void onLastListenMessage(MessageReceivedEvent e) {
         //monitor means your listener will be the last to be called, you shouldn't delete message here 
     }
@@ -43,8 +43,6 @@ public class MessageListener implements DiscordListener {
     //onMessage() will be called before onLastListenMessage()!
 }
 ```
-TAKE CARE! Make sure you use the annotation from the library and not jda (check your imports)
-
 # Recommendations
 
 - Don't delete message (or remove reaction in reaction event etc) if its MONITOR, if you wish you should use HIGHEST
