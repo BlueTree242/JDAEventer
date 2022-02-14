@@ -39,6 +39,8 @@ artifacts {
 javadoc {
     dependsOn delombok
     options.addBooleanOption("html5", true)
-    options.links 'https://ci.dv8tion.net/job/JDA/javadoc/'
+    options.links 'https://ci.dv8tion.net/job/JDA/javadoc/', 'https://docs.oracle.com/javase/8/docs/api/'
     source = delombok
+    if (JavaVersion.current() in JavaVersion.VERSION_11..JavaVersion.VERSION_12)
+    options.addBooleanOption('-no-module-directories', true)
 }
