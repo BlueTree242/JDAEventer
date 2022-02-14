@@ -11,10 +11,10 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 /**
  * This class is the listener which calls all the handlers, you can get the one from {@link JDAEventer#getRootListener()}
  */
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class RootEventListener implements EventListener {
     @Getter
     private final JDAEventer core;
