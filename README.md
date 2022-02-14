@@ -1,10 +1,10 @@
 # ⚠ Stable but not complete
 
-# What is JDA Eventer?
+# What is JDAEventer?
 
-Eventer is a JDA Library for a better event system, currently pretty small but many features still coming.
+JDAEventer is a JDA Library for a better event system, currently pretty small but many features still coming.
 
-Eventer aims to manage your events better than regular ListenerAdapter
+JDAEventer aims to manage your events better than regular ListenerAdapter
 
 # Features
 
