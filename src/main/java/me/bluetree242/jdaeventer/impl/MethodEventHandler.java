@@ -5,6 +5,7 @@ import me.bluetree242.jdaeventer.*;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.exceptions.BadListenerException;
 import net.dv8tion.jda.api.events.GenericEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 
@@ -36,7 +37,7 @@ public class MethodEventHandler implements EventHandler {
 
 
     @Override
-    public void onEvent(GenericEvent event) {
+    public void onEvent(@NotNull GenericEvent event) {
         try {
             method.invoke(listener, event);
         } catch (Exception e) {
