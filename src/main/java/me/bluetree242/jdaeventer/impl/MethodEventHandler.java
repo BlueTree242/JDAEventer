@@ -39,7 +39,7 @@ public class MethodEventHandler implements EventHandler {
         try {
             method.invoke(listener, event);
         } catch (Exception e) {
-
+            e.printStackTrace()
         }
     }
 }
