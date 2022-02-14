@@ -34,11 +34,8 @@ artifacts {
 }
 
 javadoc {
-    if (JavaVersion.VERSION_1_8 < project.javaVersion) {
-        opt.addBooleanOption("html5", true)
-        opt.addStringOption("-release", "8")
-    }
-    if (javaVersion in JavaVersion.VERSION_11..JavaVersion.VERSION_12) {
-        opt.addBooleanOption("-no-module-directories", true)
-    }
+        options.addBooleanOption("html5", true)
+        options.addStringOption("-release", "8")
+        options.addBooleanOption("-no-module-directories", true)
+
 }
