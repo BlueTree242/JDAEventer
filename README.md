@@ -49,7 +49,7 @@ dependencies {
 ```
 
 # Javadoc
-Javadoc can be found [here](https://ci.bluetree242.tk/job/JDAEventer/javadoc/)
+Javadoc can be found [here](https://ci.bluetree242.tk/job/JDAEventer/javadoc/index.html)
 # How to use
 
 ```java

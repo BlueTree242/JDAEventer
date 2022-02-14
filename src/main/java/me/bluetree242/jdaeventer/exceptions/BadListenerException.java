@@ -1,4 +1,4 @@
-package me.bluetree242.jdaeventer;
+package me.bluetree242.jdaeventer.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

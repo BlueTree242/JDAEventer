@@ -3,6 +3,7 @@ package me.bluetree242.jdaeventer.impl;
 import lombok.Getter;
 import me.bluetree242.jdaeventer.*;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
+import me.bluetree242.jdaeventer.exceptions.BadListenerException;
 import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.lang.reflect.Method;
