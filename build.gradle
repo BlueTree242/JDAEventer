@@ -1,7 +1,11 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'maven-publish'
 }
+
+group 'me.bluetree242'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -13,4 +17,17 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+task packageSources(type: Jar, dependsOn: 'classes') {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+artifacts {
+    archives packageJavadoc
+    archives packageSources
 }

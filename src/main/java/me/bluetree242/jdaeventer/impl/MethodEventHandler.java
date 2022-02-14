@@ -1,8 +1,8 @@
-package me.bluetree242.eventer.impl;
+package me.bluetree242.jdaeventer.impl;
 
 import lombok.Getter;
-import me.bluetree242.eventer.*;
-import me.bluetree242.eventer.annotations.HandleEvent;
+import me.bluetree242.jdaeventer.*;
+import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.lang.reflect.Method;

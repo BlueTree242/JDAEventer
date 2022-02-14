@@ -1,4 +1,4 @@
-package me.bluetree242.eventer;
+package me.bluetree242.jdaeventer;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

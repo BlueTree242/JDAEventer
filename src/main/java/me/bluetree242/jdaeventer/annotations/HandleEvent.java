@@ -1,6 +1,6 @@
-package me.bluetree242.eventer.annotations;
+package me.bluetree242.jdaeventer.annotations;
 
-import me.bluetree242.eventer.EventPriority;
+import me.bluetree242.jdaeventer.EventPriority;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

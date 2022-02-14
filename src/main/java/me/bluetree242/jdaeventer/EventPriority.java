@@ -1,4 +1,4 @@
-package me.bluetree242.eventer;
+package me.bluetree242.jdaeventer;
 
 public enum EventPriority {
 
