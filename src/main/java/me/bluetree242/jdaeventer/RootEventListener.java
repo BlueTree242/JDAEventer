@@ -16,12 +16,16 @@ import java.util.Set;
  */
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class RootEventListener implements EventListener {
-    @Getter
-    private final JDAEventer core;
+    /**
+     * gets the eventer instance for this root listener
+     * @see JDAEventer#getRootListener()
+     */
+    @Getter @NotNull
+    private final JDAEventer eventer;
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {
-        Set<EventHandler> handlers = new HashSet<>(core.getHandlers());
+        Set<EventHandler> handlers = new HashSet<>(eventer.getHandlers());
         handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum()));
         for (EventHandler handler : handlers) {
             if (handler.getEvent().isInstance(event))

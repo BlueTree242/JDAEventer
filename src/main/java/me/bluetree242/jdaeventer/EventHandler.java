@@ -19,5 +19,9 @@ public interface EventHandler<T extends GenericEvent> {
 
     @NotNull EventPriority getPriority();
 
+    /**
+     * event this handler is for, if it matches (or instanceof is true) event {@link EventHandler#onEvent(GenericEvent) will be called}
+     * @return
+     */
     @NotNull Class<T> getEvent();
 }

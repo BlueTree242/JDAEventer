@@ -13,12 +13,24 @@ import java.lang.reflect.Method;
  * the handler for listeners, one per method
  */
 public class MethodEventHandler implements EventHandler {
+    /**
+     * get the event priority in the method's annotation
+     * @return event priority or the handler and method
+     */
     @Getter
     private final EventPriority priority;
     @Getter
     private final Class event;
+    /**
+     * get the listener for that method
+     * @return listener of the method
+     */
     @Getter
     private final DiscordListener listener;
+    /**
+     * method that this instance is for, it is also invoked on event
+     * @return method this instance is for
+     */
     @Getter
     private final Method method;
 

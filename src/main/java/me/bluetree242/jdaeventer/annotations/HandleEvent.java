@@ -21,5 +21,5 @@ public @interface HandleEvent {
      * A priority determines when to call your method
      * @return priority of the method
      */
-    @NotNull EventPriority priority() default EventPriority.NORMAL;
+     EventPriority priority() default EventPriority.NORMAL;
 }

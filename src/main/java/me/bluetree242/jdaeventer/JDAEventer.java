@@ -12,6 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class JDAEventer {
+    /**
+     * get the handlers added to this eventer instance
+     * @return set of handlers added to this instance
+     */
     @Getter
     private static final Set<EventHandler> handlers = new HashSet<>();
     public static Set<Class<? extends GenericEvent>> events = null;
@@ -28,17 +32,15 @@ public class JDAEventer {
     }
 
 
-    private final RootEventListener rootListener;
-
     /**
      * gets the root instance, which is the listener you should add to your jda, this one listen for events and calls all the handlers
      * @return the root listener for the eventer instance
      * @see net.dv8tion.jda.api.JDA#addEventListener(Object...)
      */
-    @NotNull
-    public RootEventListener getRootListener() {
-        return rootListener;
-    }
+    @Getter(onMethod_={@NotNull})
+    private final RootEventListener rootListener;
+
+
 
     public JDAEventer() {
         rootListener = new RootEventListener(this);
