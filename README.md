@@ -1,6 +1,6 @@
 # ⚠ Stable but not complete
 
-# What is Eventer?
+# What is JDA Eventer?
 
 Eventer is a JDA Library for a better event system, currently pretty small but many features still coming.
 
