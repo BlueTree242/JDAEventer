@@ -17,7 +17,7 @@ public class JDAEventer {
      * @return set of handlers added to this instance
      */
     @Getter
-    private static final Set<EventHandler> handlers = new HashSet<>();
+    private final Set<EventHandler> handlers = new HashSet<>();
     public static Set<Class<? extends GenericEvent>> events = null;
 
     static {
