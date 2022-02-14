@@ -15,11 +15,11 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 - Remove all listeners related to a listener class using its class
 
 # How to integrate to your project
-The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We have CI [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if you don't use maven or gradle
+The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We have [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if you don't use maven or gradle
 ## Maven
 Add the repository
 ```xml
-	<repositories>
+<repositories>
   <repository>
     <id>jitpack.io</id>
     <url>https://jitpack.io</url>
@@ -37,15 +37,15 @@ And the dependency
 ## Gradle
 Add the repository
 ```groovy
-	repositories {
-			maven { url 'https://jitpack.io' }
-	}
+repositories {
+	maven { url 'https://jitpack.io' }
+}
 ```
 And the dependency
 ```groovy
-	dependencies {
-	        implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
-	}
+dependencies {
+	implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
+}
 ```
 
 # Javadoc
