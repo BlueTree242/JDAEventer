@@ -44,7 +44,7 @@ repositories {
 And the dependency
 ```groovy
 dependencies {
-	implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
+    implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
 }
 ```
 
