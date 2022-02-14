@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'me.bluetree242'
-version '1.0'
+version '1.0-ALPHA'
 
 repositories {
     mavenCentral()

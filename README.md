@@ -14,6 +14,42 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 - Very easy to use, if you already use regular jda listeners switching isn't hard
 - Remove all listeners related to a listener class using its class
 
+# How to integrate to your project
+The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We have CI [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if you don't use maven or gradle
+## Maven
+Add the repository
+```xml
+	<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+```
+And the dependency
+```xml
+<dependency>
+  <groupId>com.github.BlueTree242</groupId>
+  <artifactId>JDAEventer</artifactId>
+  <version>master-SNAPSHOT</version>
+</dependency>
+```
+## Gradle
+Add the repository
+```groovy
+	repositories {
+			maven { url 'https://jitpack.io' }
+	}
+```
+And the dependency
+```groovy
+	dependencies {
+	        implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
+	}
+```
+
+# Javadoc
+Javadoc can be found [here](https://ci.bluetree242.tk/job/JDAEventer/javadoc/)
 # How to use
 
 ```java
