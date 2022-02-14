@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Put this on methods to add method as {@link me.bluetree242.jdaeventer.impl.MethodEventHandler}, if you do not include this on method it will be ignored when you register
+ * Put this on methods to add method as {@link me.bluetree242.jdaeventer.impl.MethodEventHandler}, if you do not include this on method it will be ignored when you add
  * @see me.bluetree242.jdaeventer.JDAEventer#addListener(DiscordListener)
  */
 @Target(ElementType.METHOD)

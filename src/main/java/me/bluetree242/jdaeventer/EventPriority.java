@@ -23,7 +23,7 @@ public enum EventPriority {
     HIGH(3),
 
     /**
-     * The handler MUST be the last to control what happens in the event
+     * The handler MUST be the last to handle the event
      */
     HIGHEST(4),
 
