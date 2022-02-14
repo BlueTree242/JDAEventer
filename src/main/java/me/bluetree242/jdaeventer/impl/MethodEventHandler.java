@@ -27,7 +27,7 @@ public class MethodEventHandler implements EventHandler {
         if (method.getParameterCount() != 1)
             throw new BadListenerException("@SubscribeEvent on a method with more than/less than 1 parameter");
         if (!JDAEventer.events.contains(method.getParameterTypes()[0]))
-            throw new IllegalStateException("Method " + method.toGenericString() + " first param is not an event");
+            throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event");
         priority = annot.priority();
         event = method.getParameterTypes()[0];
         this.method = method;
@@ -39,7 +39,7 @@ public class MethodEventHandler implements EventHandler {
         try {
             method.invoke(listener, event);
         } catch (Exception e) {
-
+            e.printStackTrace()
         }
     }
 }
