@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 public class MethodEventHandler implements EventHandler {
     /**
      * get the event priority in the method's annotation
-     * @return event priority or the handler and method
+     * @return event priority of the event handler and method
      */
     @Getter
     private final EventPriority priority;
