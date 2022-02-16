@@ -97,7 +97,7 @@ public class EventInformation {
      * Get a note as a boolean
      *
      * @param name name of note
-     * @return null if it note doesn't exist or it is not a String, else the boolean note
+     * @return null if it note doesn't exist or it is not a boolean, else the boolean note
      */
     @Nullable
     public Boolean getNoteBoolean(@NotNull String name) {
