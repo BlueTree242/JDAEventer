@@ -15,9 +15,15 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 - Remove all listeners related to a listener class using its class
 
 # How to integrate to your project
-The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We have [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if you don't use maven or gradle
+
+The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We
+have [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if
+you don't use maven or gradle
+
 ## Maven
+
 Add the repository
+
 ```xml
 <repositories>
   <repository>
@@ -26,7 +32,9 @@ Add the repository
   </repository>
 </repositories>
 ```
+
 And the dependency
+
 ```xml
 <dependency>
   <groupId>com.github.BlueTree242</groupId>
@@ -34,14 +42,19 @@ And the dependency
   <version>master-SNAPSHOT</version>
 </dependency>
 ```
+
 ## Gradle
+
 Add the repository
+
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 ```
+
 And the dependency
+
 ```groovy
 dependencies {
     implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
@@ -49,7 +62,9 @@ dependencies {
 ```
 
 # Javadoc
+
 Javadoc can be found [here](https://ci.bluetree242.tk/job/JDAEventer/javadoc/index.html)
+
 # How to use
 
 ```java
@@ -67,18 +82,20 @@ public class Bot {
 public class MessageListener implements DiscordListener {
 
     @HandleEvent //default priority is NORMAL
-    public void onMessage(MessageReceivedEvent e) { //method name doesn't matter anymore
-        //now listen for your event whatever you want to do
+    public void onMessage(MessageReceivedEvent e, EventInformation info) { //method name doesn't matter anymore, info is optional
+        info.addNote("wasListened", true);
+        //some code
     }
 
-    @HandleEvent(priority = HandlerPriority.MONITOR)
-    public void onLastListenMessage(MessageReceivedEvent e) {
-        //monitor means your listener will be the last to be called, you shouldn't delete message here 
+    @HandleEvent(priority = HandlerPriority.MONITOR) //monitor means your listener will be the last to be called, you shouldn't delete message here 
+    public void onLastListenMessage(MessageReceivedEvent e, EventInformation info) { //info is optional, if you don't need it then don't add it
+        System.out.println(info.getNoteBoolean("wasListened")); //should print true
     }
 
-    //onMessage() will be called before onLastListenMessage()!
+    //onMessage() will be called before onLastListenMessage()! This guarantee that wasListened is true unless another third handler removes it.
 }
 ```
+
 # Recommendations
 
 - Don't delete message (or remove reaction in reaction event etc) if its MONITOR, if you wish you should use HIGHEST
@@ -86,12 +103,9 @@ public class MessageListener implements DiscordListener {
 
 # Planned Features
 
-- Marking events as cancelled
-- Adding event notes, for other listeners to read and know some information (for example let other listeners know if
-  this message isn't regular and is a command)
+- ~~Marking events as cancelled~~ Added
+- ~~Adding event notes, for other listeners to read and know some information (for example let other listeners know if
+  this message isn't regular and is a command)~~ Added
 - Schedule an event to run for temporary time, and removes itself (or manually but easy)
 - Limit a listener to a specific guild, in 1 line of code!
 - And MANY MORE!
-
-
-

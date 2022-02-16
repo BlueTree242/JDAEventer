@@ -1,9 +1,13 @@
 package me.bluetree242.jdaeventer.impl;
 
 import lombok.Getter;
-import me.bluetree242.jdaeventer.*;
+import me.bluetree242.jdaeventer.DiscordListener;
+import me.bluetree242.jdaeventer.EventHandler;
+import me.bluetree242.jdaeventer.HandlerPriority;
+import me.bluetree242.jdaeventer.JDAEventer;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.exceptions.BadListenerException;
+import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +19,7 @@ import java.lang.reflect.Method;
 public class MethodEventHandler implements EventHandler {
     /**
      * get the event priority in the method's annotation
+     *
      * @return event priority of the event handler and method
      */
     @Getter
@@ -23,12 +28,14 @@ public class MethodEventHandler implements EventHandler {
     private final Class event;
     /**
      * get the listener for that method
+     *
      * @return listener of the method
      */
     @Getter
     private final DiscordListener listener;
     /**
      * method that this instance is for, it is also invoked on event
+     *
      * @return method this instance is for
      */
     @Getter
@@ -38,10 +45,13 @@ public class MethodEventHandler implements EventHandler {
         this.listener = listener;
         HandleEvent annot = method.getAnnotation(HandleEvent.class);
         if (annot == null) throw new IllegalStateException("Bad Method to register");
-        if (method.getParameterCount() != 1)
-            throw new BadListenerException("@SubscribeEvent on a method with more than/less than 1 parameter");
-        if (!JDAEventer.events.contains(method.getParameterTypes()[0]))
+        if (method.getParameterCount() > 2)
+            throw new BadListenerException("@SubscribeEvent on a method with more than 2 parameters");
+        if (!JDAEventer.getEvents().contains(method.getParameterTypes()[0]))
             throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event");
+        if (method.getParameterCount() == 2)
+            if (!EventInformation.class.isAssignableFrom(method.getParameterTypes()[1]))
+                throw new BadListenerException("Second parameter for method " + method.toGenericString() + " is not EventInformation");
         priority = annot.priority();
         event = method.getParameterTypes()[0];
         this.method = method;
@@ -49,11 +59,14 @@ public class MethodEventHandler implements EventHandler {
 
 
     @Override
-    public void onEvent(@NotNull GenericEvent event) {
+    public void onEvent(@NotNull GenericEvent event, EventInformation info) {
         try {
-            method.invoke(listener, event);
+            if (method.getParameterCount() == 1)
+                method.invoke(listener, event);
+            else method.invoke(listener, event, info);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

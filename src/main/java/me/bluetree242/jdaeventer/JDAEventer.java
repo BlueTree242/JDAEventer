@@ -13,12 +13,12 @@ import java.util.Set;
 
 public class JDAEventer {
     /**
-     * get the handlers added to this eventer instance
-     * @return set of handlers added to this instance
+     * get the events that exist in jda, you can add events to this
+     *
+     * @return all events that exist in jda
      */
     @Getter
-    private final Set<EventHandler> handlers = new HashSet<>();
-    public static Set<Class<? extends GenericEvent>> events = null;
+    private static final Set<Class<? extends GenericEvent>> events;
 
     static {
         events = new HashSet<>();
@@ -26,20 +26,27 @@ public class JDAEventer {
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.getParameterCount() == 1) {
                 if (GenericEvent.class.isAssignableFrom(method.getParameters()[0].getType()))
+                    //noinspection unchecked
                     events.add((Class<? extends GenericEvent>) method.getParameters()[0].getType());
             }
         }
     }
 
-
+    /**
+     * get the handlers added to this eventer instance
+     *
+     * @return set of handlers added to this instance
+     */
+    @Getter
+    private final Set<EventHandler> handlers = new HashSet<>();
     /**
      * gets the root instance, which is the listener you should add to your jda, this one listen for events and calls all the handlers
+     *
      * @return the root listener for the eventer instance
      * @see net.dv8tion.jda.api.JDA#addEventListener(Object...)
      */
-    @Getter(onMethod_={@NotNull})
+    @Getter(onMethod_ = {@NotNull})
     private final RootEventListener rootListener;
-
 
 
     public JDAEventer() {
@@ -49,10 +56,12 @@ public class JDAEventer {
     /**
      * Add a listener to this eventer instance.
      * This method adds a {@link MethodEventHandler} for every method with annotation {@link HandleEvent}
-     * @throws me.bluetree242.jdaeventer.exceptions.BadListenerException if listener has a problem
+     *
      * @param listener listener to add
+     * @return this JDAEventer, for a chain
+     * @throws me.bluetree242.jdaeventer.exceptions.BadListenerException if listener has a problem
      */
-    public void addListener(@NotNull DiscordListener listener) {
+    public JDAEventer addListener(@NotNull DiscordListener listener) {
         try {
             for (Method method : listener.getClass().getMethods()) {
                 if (method.getAnnotation(HandleEvent.class) != null)
@@ -62,53 +71,66 @@ public class JDAEventer {
             removeListener(listener);
             throw x;
         }
+        return this;
     }
 
     /**
      * remove a listener, must be the exact instance added before.
      * This method removes any {@link MethodEventHandler} handler registered from this listener
+     *
      * @param listener listener to remove
+     * @return this JDAEventer, for a chain
      * @see JDAEventer#removeListener(Class)
      */
-    public void removeListener(@NotNull DiscordListener listener) {
+    public JDAEventer removeListener(@NotNull DiscordListener listener) {
         for (EventHandler h : new HashSet<>(handlers)) {
             if (h instanceof MethodEventHandler) {
                 MethodEventHandler handler = (MethodEventHandler) h;
                 if (handler.getListener() == listener) handlers.remove(h);
             }
         }
+        return this;
     }
 
     /**
      * adds an event handler to list of handlers
+     *
      * @param handler add a handler to list of handlers
+     * @return this JDAEventer, for a chain
      * @see EventHandler
      */
-    public void addEventHandler(@NotNull EventHandler handler) {
+    public JDAEventer addEventHandler(@NotNull EventHandler handler) {
         handlers.add(handler);
+        return this;
     }
 
     /**
      * removes a handler from handler list
+     *
      * @param handler handler to remove
+     * @return this JDAEventer, for a chain
      */
-    public void removeEventHandler(@NotNull EventHandler handler) {
+    public JDAEventer removeEventHandler(@NotNull EventHandler handler) {
         handlers.remove(handler);
+        return this;
     }
 
     /**
      * removes any handler added from this listener class.
      * This method removes any {@link MethodEventHandler} handler registered from this class
+     *
      * @param listener listener class to remove
+     * @return this JDAEventer, for a chain
      * @see JDAEventer#removeListener(DiscordListener)
      */
-    public void removeListener(@NotNull Class<? extends DiscordListener> listener) {
+    public JDAEventer removeListener(@NotNull Class<? extends DiscordListener> listener) {
         for (EventHandler h : new HashSet<>(handlers)) {
             if (h instanceof MethodEventHandler) {
                 MethodEventHandler handler = (MethodEventHandler) h;
                 if (listener.isInstance(handler.getListener())) handlers.remove(h);
             }
         }
+        return this;
     }
 
 
