@@ -18,7 +18,7 @@ public class MethodEventHandler implements EventHandler {
      * @return event priority of the event handler and method
      */
     @Getter
-    private final EventPriority priority;
+    private final HandlerPriority priority;
     @Getter
     private final Class event;
     /**

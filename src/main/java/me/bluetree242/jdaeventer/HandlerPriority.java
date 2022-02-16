@@ -1,6 +1,6 @@
 package me.bluetree242.jdaeventer;
 
-public enum EventPriority {
+public enum HandlerPriority {
 
     /**
      * The handler method must be the first to be called, no guarantee to be the exact first if other handlers use this priority
@@ -34,7 +34,7 @@ public enum EventPriority {
 
     private final int asNum;
 
-    private EventPriority(int num) {
+    private HandlerPriority(int num) {
         this.asNum = num;
     }
 

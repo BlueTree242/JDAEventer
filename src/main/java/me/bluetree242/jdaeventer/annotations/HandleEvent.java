@@ -1,8 +1,7 @@
 package me.bluetree242.jdaeventer.annotations;
 
 import me.bluetree242.jdaeventer.DiscordListener;
-import me.bluetree242.jdaeventer.EventPriority;
-import org.jetbrains.annotations.NotNull;
+import me.bluetree242.jdaeventer.HandlerPriority;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,5 +20,5 @@ public @interface HandleEvent {
      * A priority determines when to call your method
      * @return priority of the method
      */
-     EventPriority priority() default EventPriority.NORMAL;
+     HandlerPriority priority() default HandlerPriority.NORMAL;
 }

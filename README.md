@@ -38,7 +38,7 @@ And the dependency
 Add the repository
 ```groovy
 repositories {
-	maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io' }
 }
 ```
 And the dependency
@@ -71,7 +71,7 @@ public class MessageListener implements DiscordListener {
         //now listen for your event whatever you want to do
     }
 
-    @HandleEvent(priority = EventPriority.MONITOR)
+    @HandleEvent(priority = HandlerPriority.MONITOR)
     public void onLastListenMessage(MessageReceivedEvent e) {
         //monitor means your listener will be the last to be called, you shouldn't delete message here 
     }
