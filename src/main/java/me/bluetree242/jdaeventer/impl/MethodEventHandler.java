@@ -49,7 +49,7 @@ public class MethodEventHandler implements EventHandler {
         HandleEvent annot = method.getAnnotation(HandleEvent.class);
         if (annot == null) throw new IllegalStateException("Bad Method to register");
         if (method.getParameterCount() > 2)
-            throw new BadListenerException("@SubscribeEvent on a method with more than 2 parameters");
+            throw new BadListenerException("@HandleEvent on a method with more than 2 parameters");
         if (!JDAEventer.getEvents().contains(method.getParameterTypes()[0]))
             throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event");
         if (method.getParameterCount() == 2)
