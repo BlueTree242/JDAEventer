@@ -34,6 +34,7 @@ public class RootEventListener implements EventListener {
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
         EventInformation info = new EventInformation(eventer);
         for (EventHandler handler : handlers) {
+            if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
             if (handler.getEvent().isInstance(event))
                 handler.onEvent(event, info);
         }

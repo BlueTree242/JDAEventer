@@ -41,6 +41,9 @@ public class MethodEventHandler implements EventHandler {
     @Getter
     private final Method method;
 
+    @Getter
+    private final boolean ignoreMarkCancelled;
+
     public MethodEventHandler(Method method, DiscordListener listener) {
         this.listener = listener;
         HandleEvent annot = method.getAnnotation(HandleEvent.class);
@@ -53,6 +56,7 @@ public class MethodEventHandler implements EventHandler {
             if (!EventInformation.class.isAssignableFrom(method.getParameterTypes()[1]))
                 throw new BadListenerException("Second parameter for method " + method.toGenericString() + " is not EventInformation");
         priority = annot.priority();
+        ignoreMarkCancelled = annot.ignoreCancelMark();
         event = method.getParameterTypes()[0];
         this.method = method;
     }

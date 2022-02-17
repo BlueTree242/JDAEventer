@@ -29,4 +29,10 @@ public interface EventHandler<T extends GenericEvent> {
      * @return
      */
     @NotNull Class<T> getEvent();
+
+    /**
+     * if the {@link EventHandler#onEvent(GenericEvent, EventInformation)} won't be called if event is marked as cancelled
+     * @return true if {@link EventHandler#onEvent(GenericEvent, EventInformation)} won't be called when event is cancelled, false otherwise
+     */
+    boolean isIgnoreMarkCancelled();
 }
