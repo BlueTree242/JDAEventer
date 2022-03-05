@@ -146,7 +146,7 @@ public class JDAEventer {
 
     /**
      * Set the connection provider
-     * @param provider
+     * @param provider the provider to use when you want to open a connection
      * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
      */
     public void setConnectionSupplier(Supplier<Connection> provider) {
