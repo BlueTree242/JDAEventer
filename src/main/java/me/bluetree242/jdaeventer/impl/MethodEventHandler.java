@@ -9,7 +9,10 @@ import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.exceptions.BadListenerException;
 import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.internal.utils.JDALogger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
 
@@ -17,6 +20,7 @@ import java.lang.reflect.Method;
  * the handler for listeners, one per method
  */
 public class MethodEventHandler implements EventHandler {
+    private static final Logger LOG = JDALogger.getLog(MethodEventHandler.class);
     /**
      * get the event priority in the method's annotation
      *
@@ -69,7 +73,7 @@ public class MethodEventHandler implements EventHandler {
                 method.invoke(listener, event);
             else method.invoke(listener, event, info);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Could not pass event " + event.getClass().getSimpleName() + " to " + listener.getClass().getName(), e);
         }
     }
 

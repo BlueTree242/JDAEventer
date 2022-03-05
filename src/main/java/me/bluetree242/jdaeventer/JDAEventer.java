@@ -6,7 +6,9 @@ import me.bluetree242.jdaeventer.impl.MethodEventHandler;
 import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.internal.utils.JDALogger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -26,7 +28,7 @@ public class JDAEventer {
      */
     @Getter
     private static final Set<Class<? extends GenericEvent>> events;
-
+    private static final Logger LOG = JDALogger.getLog(MethodEventHandler.class);
     /**
      * Get the supplier used to get database connections
      * @return the connection supplier if set, false otherwise
@@ -169,7 +171,11 @@ public class JDAEventer {
         for (EventHandler handler : handlers) {
             if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
             if (handler.getEvent().isInstance(event))
-                handler.onEvent(event, info);
+                try {
+                    handler.onEvent(event, info);
+                } catch (Exception ex) {
+                    LOG.error("One of the EventHandlers had an uncaught exception", ex);
+                }
         }
         if (info.isConnectionOpen()) {
             try {
