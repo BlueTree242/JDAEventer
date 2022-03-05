@@ -33,20 +33,6 @@ public class RootEventListener implements EventListener {
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {
-        Set<EventHandler> handlers = new HashSet<>(eventer.getHandlers());
-        handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
-        EventInformation info = new EventInformation(eventer);
-        for (EventHandler handler : handlers) {
-            if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
-            if (handler.getEvent().isInstance(event))
-                handler.onEvent(event, info);
-        }
-        if (info.isConnectionOpen()) {
-            try {
-                info.getConnection().close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
+        eventer.fireEvent(event);
     }
 }

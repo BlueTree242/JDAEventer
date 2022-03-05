@@ -3,19 +3,24 @@ package me.bluetree242.jdaeventer;
 import lombok.Getter;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.impl.MethodEventHandler;
+import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class JDAEventer {
     /**
-     * get the events that exist in jda, you can add events to this
+     * get the events that exist in jda, you shouldn't add events to this
      *
      * @return all events that exist in jda
      */
@@ -153,4 +158,25 @@ public class JDAEventer {
         connectionSupplier = provider;
     }
 
+    /**
+     * Fire any event, {@link RootEventListener} calls this when there is an event
+     * @param event event to fire
+     */
+    public void fireEvent(GenericEvent event) {
+        Set<EventHandler> handlers = new HashSet<>(getHandlers());
+        handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
+        EventInformation info = new EventInformation(this);
+        for (EventHandler handler : handlers) {
+            if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
+            if (handler.getEvent().isInstance(event))
+                handler.onEvent(event, info);
+        }
+        if (info.isConnectionOpen()) {
+            try {
+                info.getConnection().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
