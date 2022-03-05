@@ -3,11 +3,14 @@ package me.bluetree242.jdaeventer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -37,6 +40,13 @@ public class RootEventListener implements EventListener {
             if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
             if (handler.getEvent().isInstance(event))
                 handler.onEvent(event, info);
+        }
+        if (info.isConnectionOpen()) {
+            try {
+                info.getConnection().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

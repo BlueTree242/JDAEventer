@@ -7,7 +7,9 @@ import me.bluetree242.jdaeventer.JDAEventer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.Connection;
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * This is information about an event.
@@ -48,6 +50,28 @@ public class EventInformation {
      */
     public boolean isMarkedCancelled() {
         return markedCancelled;
+    }
+    private Connection connection = null;
+
+    /**
+     * Get the database connection
+     * @return the database connection, if the  connection isn't open it opens a new one
+     * @throws UnsupportedOperationException if the connection supplier isn't set
+     * @see JDAEventer#setConnectionSupplier(Supplier)
+     */
+    public Connection getConnection() {
+        if (connection == null) {
+            if (eventer.getConnectionSupplier() == null) throw new UnsupportedOperationException("Connection Supplier is not set");
+            return connection = eventer.getConnectionSupplier().get();
+        } else return connection;
+    }
+
+    /**
+     * Check if the Connection with database is open
+     * @return true if database connection is open, false otherwise
+     */
+    public boolean isConnectionOpen() {
+        return connection != null;
     }
 
     /**

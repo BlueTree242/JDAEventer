@@ -8,8 +8,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class JDAEventer {
     /**
@@ -19,6 +21,15 @@ public class JDAEventer {
      */
     @Getter
     private static final Set<Class<? extends GenericEvent>> events;
+
+    /**
+     * Get the supplier used to get database connections
+     * @return the connection supplier if set, false otherwise
+     * @see JDAEventer#setConnectionSupplier(Supplier)
+     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
+     */
+    @Getter
+    private Supplier<Connection> connectionSupplier = null;
 
     static {
         events = new HashSet<>();
@@ -133,5 +144,13 @@ public class JDAEventer {
         return this;
     }
 
+    /**
+     * Set the connection provider
+     * @param provider
+     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
+     */
+    public void setConnectionSupplier(Supplier<Connection> provider) {
+        connectionSupplier = provider;
+    }
 
 }
