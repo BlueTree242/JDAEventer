@@ -13,6 +13,7 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 - better management for all your listeners (well not really possible now)
 - Very easy to use, if you already use regular jda listeners switching isn't hard
 - Remove all listeners related to a listener class using its class
+- Add some information to an event for other listeners to know about
 - Use 1 Connection to your database per event, don't open a trillion connections!
 # How to integrate to your project
 
