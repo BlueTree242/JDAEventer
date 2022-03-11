@@ -73,7 +73,7 @@ public class MethodEventHandler implements EventHandler {
                 method.invoke(listener, event);
             else method.invoke(listener, event, info);
         } catch (Exception e) {
-            LOG.error("Could not pass event " + event.getClass().getSimpleName() + " to " + listener.getClass().getName(), e);
+            LOG.error("Could not pass event " + event.getClass().getSimpleName() + " to " + listener.getClass().getName(), e.getCause());
         }
     }
 
