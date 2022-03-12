@@ -47,7 +47,8 @@ public class MethodEventHandler implements EventHandler {
 
     @Getter
     private final boolean ignoreMarkCancelled;
-
+    @Getter
+    private final Class<? extends GenericEvent>[] blacklist;
     public MethodEventHandler(Method method, DiscordListener listener) {
         this.listener = listener;
         HandleEvent annot = method.getAnnotation(HandleEvent.class);
@@ -62,6 +63,7 @@ public class MethodEventHandler implements EventHandler {
         priority = annot.priority();
         ignoreMarkCancelled = annot.ignoreCancelMark();
         event = method.getParameterTypes()[0];
+        blacklist = annot.blacklist();
         this.method = method;
     }
 
@@ -69,6 +71,9 @@ public class MethodEventHandler implements EventHandler {
     @Override
     public void onEvent(@NotNull GenericEvent event, EventInformation info) {
         try {
+            for (Class<? extends GenericEvent> aClass : blacklist) {
+                if (aClass.isInstance(event)) return;
+            }
             if (method.getParameterCount() == 1)
                 method.invoke(listener, event);
             else method.invoke(listener, event, info);

@@ -4,6 +4,7 @@ import me.bluetree242.jdaeventer.DiscordListener;
 import me.bluetree242.jdaeventer.HandlerPriority;
 import me.bluetree242.jdaeventer.impl.MethodEventHandler;
 import me.bluetree242.jdaeventer.objects.EventInformation;
+import net.dv8tion.jda.api.events.GenericEvent;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -33,4 +34,10 @@ public @interface HandleEvent {
      * @see EventInformation#setMarkedCancelled(boolean) 
      */
     boolean ignoreCancelMark() default false;
+
+    /**
+     * Events to make sure this handler doesn't get, remember you always get events that extend the event for this handler.
+     * @return List of blacklisted events for this handler
+     */
+    Class<? extends GenericEvent>[] blacklist() default {};
 }
