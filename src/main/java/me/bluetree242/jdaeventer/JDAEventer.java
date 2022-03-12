@@ -31,7 +31,7 @@ public class JDAEventer {
     private static final Logger LOG = JDALogger.getLog(MethodEventHandler.class);
     /**
      * Get the supplier used to get database connections
-     * @return the connection supplier if set, false otherwise
+     * @return the connection supplier if set, null otherwise
      * @see JDAEventer#setConnectionSupplier(Supplier)
      * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
      */
