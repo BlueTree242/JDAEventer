@@ -179,6 +179,7 @@ public class JDAEventer {
         }
         if (info.isConnectionOpen()) {
             try {
+                info.getConnection().commit();
                 info.getConnection().close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
