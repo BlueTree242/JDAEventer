@@ -163,11 +163,11 @@ public class JDAEventer {
     /**
      * Fire any event, {@link RootEventListener} calls this when there is an event
      * @param event event to fire
+     * @param info Event Information to pass to all handlers
      */
-    public void fireEvent(GenericEvent event) {
+    public void fireEvent(@NotNull GenericEvent event, @NotNull EventInformation info) {
         Set<EventHandler> handlers = new HashSet<>(getHandlers());
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
-        EventInformation info = new EventInformation(this);
         for (EventHandler handler : handlers) {
             if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
             if (handler.getEvent().isInstance(event))
@@ -184,5 +184,13 @@ public class JDAEventer {
                 ex.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Fire an event, calls {@link JDAEventer#fireEvent(GenericEvent, EventInformation)} with a new {@link EventInformation}
+     * @param event event to fire
+     */
+    public void fireEvent(@NotNull GenericEvent event) {
+        fireEvent(event, new EventInformation(this));
     }
 }
