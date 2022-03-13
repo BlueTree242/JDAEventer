@@ -170,7 +170,7 @@ public class JDAEventer {
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
         for (EventHandler handler : handlers) {
             if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
-            if (handler.getEvent().isInstance(event))
+            if (handler.getEvent().isInstance(info.getNewEvent() == null ? event : info.getNewEvent()))
                 try {
                     //noinspection unchecked
                     handler.onEvent(info.getNewEvent() == null ? event : info.getNewEvent(), info);
