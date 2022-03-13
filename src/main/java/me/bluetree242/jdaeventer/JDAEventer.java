@@ -172,7 +172,8 @@ public class JDAEventer {
             if (info.isMarkedCancelled() && handler.isIgnoreMarkCancelled()) continue; //ignore
             if (handler.getEvent().isInstance(event))
                 try {
-                    handler.onEvent(event, info);
+                    //noinspection unchecked
+                    handler.onEvent(info.getNewEvent() == null ? event : info.getNewEvent(), info);
                 } catch (Exception ex) {
                     LOG.error("One of the EventHandlers had an uncaught exception", ex);
                 }
@@ -192,6 +193,6 @@ public class JDAEventer {
      * @param event event to fire
      */
     public void fireEvent(@NotNull GenericEvent event) {
-        fireEvent(event, new EventInformation(this));
+        fireEvent(event, new EventInformation(this, event));
     }
 }

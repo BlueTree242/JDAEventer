@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import me.bluetree242.jdaeventer.JDAEventer;
+import net.dv8tion.jda.api.events.GenericEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +31,7 @@ public class EventInformation {
      */
     @Getter
     private final JDAEventer eventer;
+    private final GenericEvent originEvent;
 
     /**
      * Mark this event as cancelled for other handlers to know.
@@ -128,4 +130,26 @@ public class EventInformation {
         if ((getNote(name) instanceof Boolean)) return (Boolean) getNote(name);
         return null;
     }
+
+    /**
+     * returns the new event set
+     * @return the new set event
+     * @see EventInformation#setEvent(GenericEvent)
+     */
+    @Getter private GenericEvent newEvent;
+
+    /**
+     * Set this event as a new event, the event MUST extend the original event,
+     * this is useful when you want to add more future handlers in a good way, and keeping the handlers in the future that were already
+     * going to get called
+     * @param event Event Object to set
+     * @throws IllegalArgumentException if event does not extend the original event
+     */
+    public void setEvent(@NotNull GenericEvent event) {
+        if (!originEvent.getClass().isInstance(event)) {
+            throw new IllegalArgumentException("Event (" + event.getClass().getName() +") must extend the original event (" + originEvent.getClass().getSimpleName() + ")");
+        }
+        newEvent = event;
+    }
+
 }
