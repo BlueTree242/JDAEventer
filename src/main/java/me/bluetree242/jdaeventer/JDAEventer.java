@@ -180,7 +180,7 @@ public class JDAEventer {
         }
         if (info.isConnectionOpen()) {
             try {
-                if (info.getConnection().getAutoCommit())
+                if (!info.getConnection().getAutoCommit())
                 info.getConnection().commit();
                 info.getConnection().close();
             } catch (SQLException ex) {
