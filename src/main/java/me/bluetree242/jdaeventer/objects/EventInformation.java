@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -62,7 +63,7 @@ public class EventInformation {
      * @see JDAEventer#setConnectionSupplier(Supplier)
      */
     public Connection getConnection() {
-        if (connection == null) {
+        if (!isConnectionOpen()) {
             if (eventer.getConnectionSupplier() == null) throw new UnsupportedOperationException("Connection Supplier is not set");
             return connection = eventer.getConnectionSupplier().get();
         } else return connection;
@@ -73,7 +74,11 @@ public class EventInformation {
      * @return true if database connection is open, false otherwise
      */
     public boolean isConnectionOpen() {
-        return connection != null;
+        try {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException throwables) {
+            return false;
+        }
     }
 
     /**
