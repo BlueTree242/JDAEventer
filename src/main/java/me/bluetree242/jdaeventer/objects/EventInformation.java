@@ -76,7 +76,7 @@ public class EventInformation {
     public boolean isConnectionOpen() {
         try {
             return connection != null && !connection.isClosed();
-        } catch (SQLException throwables) {
+        } catch (SQLException ex) {
             return false;
         }
     }

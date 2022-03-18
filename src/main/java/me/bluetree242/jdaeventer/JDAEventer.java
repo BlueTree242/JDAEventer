@@ -13,16 +13,13 @@ import org.slf4j.Logger;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class JDAEventer {
     /**
-     * get the events that exist in jda, you shouldn't add events to this
+     * get the events that exist in jda, the events here are unmodifiable
      *
      * @return all events that exist in jda
      */
@@ -39,15 +36,16 @@ public class JDAEventer {
     private Supplier<Connection> connectionSupplier = null;
 
     static {
-        events = new HashSet<>();
+        Set<Class<? extends GenericEvent>> jdaEvents = new HashSet<>();
         Class clazz = ListenerAdapter.class;
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.getParameterCount() == 1) {
                 if (GenericEvent.class.isAssignableFrom(method.getParameters()[0].getType()))
                     //noinspection unchecked
-                    events.add((Class<? extends GenericEvent>) method.getParameters()[0].getType());
+                    jdaEvents.add((Class<? extends GenericEvent>) method.getParameters()[0].getType());
             }
         }
+        events = Collections.unmodifiableSet(jdaEvents);
     }
 
     /**

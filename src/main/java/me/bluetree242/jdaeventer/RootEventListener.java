@@ -3,19 +3,10 @@ package me.bluetree242.jdaeventer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.SneakyThrows;
-import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * This class is the listener which calls all the handlers, you can get the one from {@link JDAEventer#getRootListener()}
