@@ -26,14 +26,6 @@ public class JDAEventer {
     @Getter
     private static final Set<Class<? extends GenericEvent>> events;
     private static final Logger LOG = JDALogger.getLog(MethodEventHandler.class);
-    /**
-     * Get the supplier used to get database connections
-     * @return the connection supplier if set, null otherwise
-     * @see JDAEventer#setConnectionSupplier(Supplier)
-     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
-     */
-    @Getter
-    private Supplier<Connection> connectionSupplier = null;
 
     static {
         Set<Class<? extends GenericEvent>> jdaEvents = new HashSet<>();
@@ -63,6 +55,15 @@ public class JDAEventer {
      */
     @Getter(onMethod_ = {@NotNull})
     private final RootEventListener rootListener;
+    /**
+     * Get the supplier used to get database connections
+     *
+     * @return the connection supplier if set, null otherwise
+     * @see JDAEventer#setConnectionSupplier(Supplier)
+     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
+     */
+    @Getter
+    private Supplier<Connection> connectionSupplier = null;
 
 
     public JDAEventer() {
@@ -151,6 +152,7 @@ public class JDAEventer {
 
     /**
      * Set the connection provider
+     *
      * @param provider the provider to use when you want to open a connection
      * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
      */
@@ -160,8 +162,9 @@ public class JDAEventer {
 
     /**
      * Fire any event, {@link RootEventListener} calls this when there is an event
+     *
      * @param event event to fire
-     * @param info Event Information to pass to all handlers
+     * @param info  Event Information to pass to all handlers
      */
     public void fireEvent(@NotNull GenericEvent event, @NotNull EventInformation info) {
         Set<EventHandler> handlers = new HashSet<>(getHandlers());
@@ -179,7 +182,7 @@ public class JDAEventer {
         if (info.isConnectionOpen()) {
             try {
                 if (!info.getConnection().getAutoCommit())
-                info.getConnection().commit();
+                    info.getConnection().commit();
                 info.getConnection().close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -189,6 +192,7 @@ public class JDAEventer {
 
     /**
      * Fire an event, calls {@link JDAEventer#fireEvent(GenericEvent, EventInformation)} with a new {@link EventInformation}
+     *
      * @param event event to fire
      */
     public void fireEvent(@NotNull GenericEvent event) {

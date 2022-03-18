@@ -16,6 +16,7 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 - Add some information to an event for other listeners to know about
 - Use 1 Connection to your database per event, don't open a trillion connections!
 - Fire Custom Events!
+
 # How to integrate to your project
 
 The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We

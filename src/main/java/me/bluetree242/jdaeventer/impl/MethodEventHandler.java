@@ -4,12 +4,10 @@ import lombok.Getter;
 import me.bluetree242.jdaeventer.DiscordListener;
 import me.bluetree242.jdaeventer.EventHandler;
 import me.bluetree242.jdaeventer.HandlerPriority;
-import me.bluetree242.jdaeventer.JDAEventer;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.exceptions.BadListenerException;
 import me.bluetree242.jdaeventer.objects.EventInformation;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.utils.JDALogger;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -49,6 +47,7 @@ public class MethodEventHandler implements EventHandler {
     private final boolean ignoreMarkCancelled;
     @Getter
     private final Class<? extends GenericEvent>[] blacklist;
+
     public MethodEventHandler(Method method, DiscordListener listener) {
         this.listener = listener;
         HandleEvent annot = method.getAnnotation(HandleEvent.class);

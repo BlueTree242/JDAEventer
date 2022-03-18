@@ -29,14 +29,16 @@ public @interface HandleEvent {
 
     /**
      * If it should not call the method if the event was previously marked as cancelled
+     *
      * @return If the method should be ignored or not when cancelled
-     * @see EventInformation#isMarkedCancelled() 
-     * @see EventInformation#setMarkedCancelled(boolean) 
+     * @see EventInformation#isMarkedCancelled()
+     * @see EventInformation#setMarkedCancelled(boolean)
      */
     boolean ignoreCancelMark() default false;
 
     /**
      * Events to make sure this handler doesn't get, remember you always get events that extend the event for this handler.
+     *
      * @return List of blacklisted events for this handler
      */
     Class<? extends GenericEvent>[] blacklist() default {};
