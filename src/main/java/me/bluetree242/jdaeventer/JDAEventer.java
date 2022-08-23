@@ -166,7 +166,7 @@ public class JDAEventer {
      * @param event event to fire
      * @param info  Event Information to pass to all handlers
      */
-    public void fireEvent(@NotNull GenericEvent event, @NotNull EventInformation info) {
+    public void fireEvent(@NotNull Object event, @NotNull EventInformation info) {
         Set<EventHandler> handlers = new HashSet<>(getHandlers());
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
         for (EventHandler handler : handlers) {
@@ -191,11 +191,11 @@ public class JDAEventer {
     }
 
     /**
-     * Fire an event, calls {@link JDAEventer#fireEvent(GenericEvent, EventInformation)} with a new {@link EventInformation}
+     * Fire an event, calls {@link JDAEventer#fireEvent(Object, EventInformation)} with a new {@link EventInformation}
      *
      * @param event event to fire
      */
-    public void fireEvent(@NotNull GenericEvent event) {
+    public void fireEvent(@NotNull Object event) {
         fireEvent(event, new EventInformation(this, event));
     }
 }

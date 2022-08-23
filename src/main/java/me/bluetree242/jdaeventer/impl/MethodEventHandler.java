@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.bluetree242.jdaeventer.DiscordListener;
 import me.bluetree242.jdaeventer.EventHandler;
 import me.bluetree242.jdaeventer.HandlerPriority;
+import me.bluetree242.jdaeventer.annotations.CustomEvent;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.exceptions.BadListenerException;
 import me.bluetree242.jdaeventer.objects.EventInformation;
@@ -54,8 +55,8 @@ public class MethodEventHandler implements EventHandler {
         if (annot == null) throw new IllegalStateException("Bad Method to register");
         if (method.getParameterCount() > 2)
             throw new BadListenerException("@HandleEvent on a method with more than 2 parameters");
-        if (!GenericEvent.class.isAssignableFrom(method.getParameterTypes()[0]))
-            throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event");
+        if (!GenericEvent.class.isAssignableFrom(method.getParameterTypes()[0]) || method.getParameterTypes()[0].getAnnotation(CustomEvent.class) == null)
+            throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event or a custom event");
         if (method.getParameterCount() == 2)
             if (!EventInformation.class.isAssignableFrom(method.getParameterTypes()[1]))
                 throw new BadListenerException("Second parameter for method " + method.toGenericString() + " is not EventInformation");
@@ -68,9 +69,9 @@ public class MethodEventHandler implements EventHandler {
 
 
     @Override
-    public void onEvent(@NotNull GenericEvent event, EventInformation info) {
+    public void onEvent(@NotNull Object event, EventInformation info) {
         try {
-            for (Class<? extends GenericEvent> aClass : blacklist) {
+            for (Class<?> aClass : blacklist) {
                 if (aClass.isInstance(event)) return;
             }
             if (method.getParameterCount() == 1)

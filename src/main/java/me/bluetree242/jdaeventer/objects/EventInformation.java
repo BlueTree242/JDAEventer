@@ -32,7 +32,7 @@ public class EventInformation {
      */
     @Getter
     private final JDAEventer eventer;
-    private final GenericEvent originEvent;
+    private final Object originEvent;
 
     /**
      * Mark this event as cancelled for other handlers to know.
