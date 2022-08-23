@@ -55,7 +55,7 @@ public class MethodEventHandler implements EventHandler {
         if (annot == null) throw new IllegalStateException("Bad Method to register");
         if (method.getParameterCount() > 2)
             throw new BadListenerException("@HandleEvent on a method with more than 2 parameters");
-        if (!GenericEvent.class.isAssignableFrom(method.getParameterTypes()[0]) || method.getParameterTypes()[0].getAnnotation(CustomEvent.class) == null)
+        if (!GenericEvent.class.isAssignableFrom(method.getParameterTypes()[0]) && method.getParameterTypes()[0].getAnnotation(CustomEvent.class) == null)
             throw new BadListenerException("Method " + method.toGenericString() + " first parameter is not an event or a custom event");
         if (method.getParameterCount() == 2)
             if (!EventInformation.class.isAssignableFrom(method.getParameterTypes()[1]))

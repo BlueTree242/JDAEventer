@@ -170,7 +170,7 @@ public class JDAEventer {
      * @throws IllegalArgumentException if the event is not custom or jda event
      */
     public void fireEvent(@NotNull Object event, @NotNull EventInformation info) {
-        if (!(event instanceof Event) || event.getClass().getAnnotation(CustomEvent.class) == null) throw new IllegalArgumentException("This event is not custom or a jda event");
+        if (!(event instanceof Event) && event.getClass().getAnnotation(CustomEvent.class) == null) throw new IllegalArgumentException("This event is not custom or a jda event");
         Set<EventHandler> handlers = new HashSet<>(getHandlers());
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
         for (EventHandler handler : handlers) {
