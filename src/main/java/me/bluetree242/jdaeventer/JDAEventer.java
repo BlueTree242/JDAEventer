@@ -1,9 +1,11 @@
 package me.bluetree242.jdaeventer;
 
 import lombok.Getter;
+import me.bluetree242.jdaeventer.annotations.CustomEvent;
 import me.bluetree242.jdaeventer.annotations.HandleEvent;
 import me.bluetree242.jdaeventer.impl.MethodEventHandler;
 import me.bluetree242.jdaeventer.objects.EventInformation;
+import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.internal.utils.JDALogger;
@@ -165,8 +167,10 @@ public class JDAEventer {
      *
      * @param event event to fire
      * @param info  Event Information to pass to all handlers
+     * @throws IllegalArgumentException if the event is not custom or jda event
      */
     public void fireEvent(@NotNull Object event, @NotNull EventInformation info) {
+        if (!(event instanceof Event) || event.getClass().getAnnotation(CustomEvent.class) == null) throw new IllegalArgumentException("This event is not custom or a jda event");
         Set<EventHandler> handlers = new HashSet<>(getHandlers());
         handlers = handlers.stream().sorted(Comparator.comparingInt(o -> o.getPriority().getAsNum())).collect(Collectors.toCollection(LinkedHashSet::new));
         for (EventHandler handler : handlers) {
