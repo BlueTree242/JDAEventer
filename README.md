@@ -19,7 +19,7 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 # How to integrate to your project
 
 The library is in alpha. Until now there is no major release, or major alpha release, you can get the latest version from [CI](https://ci.bluetree242.tk/job/JDAEventer)
-(you can get the latest version from the jar file name)
+(you can get the latest version from the jar file name) or you can use the one of the versions listed [here](https://repo.bluetree242.ml/#browse/search/maven=attributes.maven2.groupId%3Dme.bluetree242.jdaeventer%20AND%20attributes.maven2.artifactId%3DJDAEventer)
 
 ## Maven
 
