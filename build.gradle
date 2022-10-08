@@ -4,9 +4,26 @@ plugins {
     id("com.github.monosoul.yadegrap") version "1.0.0"
 }
 
-group 'me.bluetree242'
-version '1.0-ALPHA'
-
+group 'me.bluetree242.jdaeventer'
+name 'JDAEventer'
+var isCI = project.properties["BUILD_NUMBER"] != null // jenkins
+        || System.getenv("BUILD_NUMBER") != null
+        || project.properties["GIT_COMMIT"] != null // jitpack
+        || System.getenv("GIT_COMMIT") != null
+var branch = System.getenv("GIT_BRANCH") ?: project.project.properties["GIT_BRANCH"]
+if (branch == null) branch = "unknown"
+var major = 1
+var minor = 0
+var revision = 0
+var verClassifier = 'alpha'
+var versionNoCommit = "${major}.${minor}.${revision}_${verClassifier}"
+var commit = System.getenv("GIT_COMMIT") ?: project.project.properties["GIT_COMMIT"]
+if (isCI && commit != null)
+    commit = commit.substring(0, 7)
+else commit = 'LOCAL'
+System.out.println("Commit: " + commit)
+System.out.println("Branch: " + branch)
+version = "${versionNoCommit}${branch != 'origin/master' ? "-${commit}-SNAPSHOT" : ''}"
 repositories {
     mavenCentral()
 }
@@ -51,6 +68,16 @@ publishing {
             from components.java
             artifact(packageSources)
             artifact(packageJavadoc)
+            repositories {
+                maven {
+                    credentials {
+                        username = System.getenv('REPO_USERNAME')
+                        password = System.getenv('REPO_PASSWORD')
+                    }
+
+                    url = "https://repo.bluetree242.ml/repository/maven-${branch != null && branch == 'origin/master' ? "releases" : "snapshots"}/"
+                }
+            }
         }
     }
 }

@@ -18,9 +18,8 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 
 # How to integrate to your project
 
-The library is in alpha. There is no nexus server yet so we use jitpack for alpha. We
-have [CI](https://ci.bluetree242.tk/job/JDAEventer) you can download the latest jar files for the library from here if
-you don't use maven or gradle
+The library is in alpha. Until now there is no major release, or major alpha release, you can get the latest version from [CI](https://ci.bluetree242.tk/job/JDAEventer)
+(you can get the latest version from the jar file name)
 
 ## Maven
 
@@ -29,8 +28,8 @@ Add the repository
 ```xml
 <repositories>
   <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>bluetree242-repo</id>
+    <url>https://repo.bluetree242.ml/repository/maven-public/</url>
   </repository>
 </repositories>
 ```
@@ -41,7 +40,7 @@ And the dependency
 <dependency>
   <groupId>com.github.BlueTree242</groupId>
   <artifactId>JDAEventer</artifactId>
-  <version>master-SNAPSHOT</version>
+  <version>VERSION</version>
 </dependency>
 ```
 
@@ -51,7 +50,7 @@ Add the repository
 
 ```groovy
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.bluetree242.ml/repository/maven-public/' }
 }
 ```
 
@@ -59,7 +58,7 @@ And the dependency
 
 ```groovy
 dependencies {
-    implementation 'com.github.BlueTree242:JDAEventer:master-SNAPSHOT'
+    implementation 'com.github.BlueTree242:JDAEventer:VERSION'
 }
 ```
 
