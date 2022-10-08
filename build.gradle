@@ -5,7 +5,6 @@ plugins {
 }
 
 group 'me.bluetree242.jdaeventer'
-name 'JDAEventer'
 var isCI = project.properties["BUILD_NUMBER"] != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || project.properties["GIT_COMMIT"] != null // jitpack
