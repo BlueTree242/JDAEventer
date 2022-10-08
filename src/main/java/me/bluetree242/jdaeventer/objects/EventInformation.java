@@ -8,10 +8,7 @@ import net.dv8tion.jda.api.events.GenericEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.function.Supplier;
 
 /**
  * This is information about an event.
@@ -44,7 +41,6 @@ public class EventInformation {
      */
     @Setter
     private boolean markedCancelled = false;
-    private Connection connection = null;
     /**
      * returns the new event set
      *
@@ -62,34 +58,6 @@ public class EventInformation {
      */
     public boolean isMarkedCancelled() {
         return markedCancelled;
-    }
-
-    /**
-     * Get the database connection
-     *
-     * @return the database connection, if the  connection isn't open it opens a new one
-     * @throws UnsupportedOperationException if the connection supplier isn't set
-     * @see JDAEventer#setConnectionSupplier(Supplier)
-     */
-    public Connection getConnection() {
-        if (!isConnectionOpen()) {
-            if (eventer.getConnectionSupplier() == null)
-                throw new UnsupportedOperationException("Connection Supplier is not set");
-            return connection = eventer.getConnectionSupplier().get();
-        } else return connection;
-    }
-
-    /**
-     * Check if the Connection with database is open
-     *
-     * @return true if database connection is open, false otherwise
-     */
-    public boolean isConnectionOpen() {
-        try {
-            return connection != null && !connection.isClosed();
-        } catch (SQLException ex) {
-            return false;
-        }
     }
 
     /**

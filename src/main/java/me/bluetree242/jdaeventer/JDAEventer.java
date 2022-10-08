@@ -13,10 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class JDAEventer {
@@ -57,15 +54,6 @@ public class JDAEventer {
      */
     @Getter(onMethod_ = {@NotNull})
     private final RootEventListener rootListener;
-    /**
-     * Get the supplier used to get database connections
-     *
-     * @return the connection supplier if set, null otherwise
-     * @see JDAEventer#setConnectionSupplier(Supplier)
-     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
-     */
-    @Getter
-    private Supplier<Connection> connectionSupplier = null;
 
 
     public JDAEventer() {
@@ -153,16 +141,6 @@ public class JDAEventer {
     }
 
     /**
-     * Set the connection provider
-     *
-     * @param provider the provider to use when you want to open a connection
-     * @see me.bluetree242.jdaeventer.objects.EventInformation#getConnection()
-     */
-    public void setConnectionSupplier(Supplier<Connection> provider) {
-        connectionSupplier = provider;
-    }
-
-    /**
      * Fire any event, {@link RootEventListener} calls this when there is an event
      *
      * @param event event to fire
@@ -182,15 +160,6 @@ public class JDAEventer {
                 } catch (Exception ex) {
                     LOG.error("One of the EventHandlers had an uncaught exception", ex);
                 }
-        }
-        if (info.isConnectionOpen()) {
-            try {
-                if (!info.getConnection().getAutoCommit())
-                    info.getConnection().commit();
-                info.getConnection().close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
