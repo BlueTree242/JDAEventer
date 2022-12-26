@@ -74,7 +74,7 @@ publishing {
                         password = System.getenv('REPO_PASSWORD')
                     }
 
-                    url = "https://repo.bluetree242.ml/maven-${branch != null && branch == 'origin/master' ? "releases" : "snapshots"}/"
+                    url = "https://repo.bluetree242.ml/repository/maven-${branch != null && branch == 'origin/master' ? "releases" : "snapshots"}/"
                 }
             }
         }
