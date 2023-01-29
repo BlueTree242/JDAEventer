@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class JDAEventer {
@@ -45,7 +46,7 @@ public class JDAEventer {
      * @return set of handlers added to this instance
      */
     @Getter
-    private final Set<EventHandler> handlers = new HashSet<>();
+    private final Set<EventHandler> handlers = ConcurrentHashMap.newKeySet();
     /**
      * gets the root instance, which is the listener you should add to your jda, this one listen for events and calls all the handlers
      *
