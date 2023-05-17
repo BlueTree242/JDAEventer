@@ -27,7 +27,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation("net.dv8tion:JDA:5.0.0-alpha.5")
+    implementation("net.dv8tion:JDA:5.0.0-beta.9")
 
     //lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
@@ -74,7 +74,7 @@ publishing {
                         password = System.getenv('REPO_PASSWORD')
                     }
 
-                    url = "https://repo.bluetree242.ml/repository/maven-${branch != null && branch == 'origin/master' ? "releases" : "snapshots"}/"
+                    url = "https://repo.bluetree242.ml/maven-${branch != null && branch == 'origin/master' ? "releases" : "snapshots"}/"
                 }
             }
         }
