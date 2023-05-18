@@ -18,8 +18,8 @@ JDAEventer aims to manage your events better than regular ListenerAdapter
 
 # How to integrate to your project
 
-The library is in alpha. Until now there is no major release, or major alpha release, you can get the latest version from [CI](https://ci.bluetree242.tk/job/JDAEventer)
-(you can get the latest version from the jar file name) or you can use the one of the versions listed [here](https://repo.bluetree242.ml/#browse/search/maven=attributes.maven2.groupId%3Dme.bluetree242.jdaeventer%20AND%20attributes.maven2.artifactId%3DJDAEventer)
+The library is in alpha. Until now there is no major release, or major alpha release, you can get the latest snapshot version from 
+[here](https://repo.bluetree242.ml/api/maven/latest/version/maven-snapshots/me/bluetree242/jdaeventer/JDAEventer) or for a jar file use [CI](https://ci.bluetree242.tk/job/JDAEventer)
 
 ## Maven
 
@@ -29,7 +29,7 @@ Add the repository
 <repositories>
   <repository>
     <id>bluetree242-repo</id>
-    <url>https://repo.bluetree242.ml/repository/maven-public/</url>
+    <url>https://repo.bluetree242.ml/maven-public/</url>
   </repository>
 </repositories>
 ```

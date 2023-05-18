@@ -57,13 +57,12 @@ javadoc {
     if (JavaVersion.current() in JavaVersion.VERSION_11..JavaVersion.VERSION_12)
         options.addBooleanOption('-no-module-directories', true)
 }
-
 publishing {
     publications {
         "$project.name"(MavenPublication) {
             groupId rootProject.group
             artifactId project.name
-            version project.version
+            version project.version.replace("-${commit}", "")
             from components.java
             artifact(packageSources)
             artifact(packageJavadoc)
