@@ -16,18 +16,20 @@ public interface EventHandler<T> {
      * This method is called when there is an event and it matches the event class
      *
      * @param event event to handle
-     * @param info event information
+     * @param info  event information
      */
     void onEvent(@NotNull T event, EventInformation info);
 
-    @NotNull HandlerPriority getPriority();
+    @NotNull
+    HandlerPriority getPriority();
 
     /**
      * event this handler is for, if it matches (or instanceof is true) event {@link EventHandler#onEvent(Object, EventInformation) will be called}
      *
      * @return
      */
-    @NotNull Class<T> getEvent();
+    @NotNull
+    Class<T> getEvent();
 
     /**
      * if the {@link EventHandler#onEvent(Object, EventInformation)} won't be called if event is marked as cancelled
